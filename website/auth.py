@@ -7,7 +7,7 @@ from flask_login import login_user, logout_user, login_required
 auth = Blueprint('auth', __name__)
 
 
-@auth.route('/sign-up' , methods=['GET', 'POST'])
+@auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
     form = SignUpForm()
     if form.validate_on_submit():
@@ -17,26 +17,28 @@ def sign_up():
         password2 = form.password2.data
 
         if password1 == password2:
-            new_customer = Customer
-            new_customer.email = email
-            new_customer.username = username
-            new_customer.password = password2
-
             try:
+                new_customer = Customer(
+                    email=email,
+                    username=username,
+                    password=password2
+                )
                 db.session.add(new_customer)
                 db.session.commit()
-                flash('User Created Successfully')
+
+                flash('User Created Successfully!', 'success')
                 return redirect('/login')
             except Exception as e:
-                print('Error creating user: ' + str(e))
-                flash('Error creating user')
+                db.session.rollback()
+                print('Error creating user:', e)
+                flash('Error creating user', 'danger')
 
             form.email.data = ''
             form.username.data = ''
             form.password1.data = ''
-            form.password2.data = ''   
-
-
+            form.password2.data = ''
+        else:
+            flash('Passwords do not match', 'warning')
     return render_template("signup.html", form=form)
 
 
@@ -48,6 +50,7 @@ def login():
         password = form.password.data
 
         customer = Customer.query.filter_by(email=email).first()
+        print(customer)
 
         if customer:
             if customer.verify_password(password):
