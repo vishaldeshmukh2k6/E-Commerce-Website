@@ -79,7 +79,7 @@ Optimized for performance using **Gunicorn**, designed for scalability, and buil
 
 ```bash
 # 1️⃣ Clone the repository
-git clone https://github.com/yourusername/E-Ecommerce-Website
+git clone https://github.com/yourusername/E-Commerce-Website
 
 # 2️⃣ Navigate to the project
 cd E-Ecommerce-Website
