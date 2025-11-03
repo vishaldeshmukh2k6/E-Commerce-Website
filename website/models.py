@@ -6,9 +6,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 class Customer(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(150), unique=True)
-    username = db.Column(db.String(150), unique=True)   
-    password = db.Column(db.String(150))
+    email = db.Column(db.String(150), unique=True, nullable=False)
+    username = db.Column(db.String(150), unique=True, nullable=False)
+    password_hash = db.Column(db.String(200), nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
     cart_items = db.relationship('Cart', backref=db.backref('customer', lazy=True))
@@ -16,17 +16,17 @@ class Customer(db.Model, UserMixin):
 
     @property
     def password(self):
-        raise AttributeError('Password is not a readable attribute.')
-    
+        raise AttributeError("Password is not a readable attribute.")
+
     @password.setter
     def password(self, password):
-        self.password_a = generate_password_hash(password = password)
+        self.password_hash = generate_password_hash(password)
 
     def verify_password(self, password):
-        return check_password_hash(self.password_a, password)
-    
-    def __str__(self):
-        return '<Customer %r>' % Customer.id
+        return check_password_hash(self.password_hash, password)
+
+    def __repr__(self):
+        return f"<Customer {self.username}>"
     
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
