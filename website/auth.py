@@ -11,57 +11,50 @@ auth = Blueprint('auth', __name__)
 def sign_up():
     form = SignUpForm()
     if form.validate_on_submit():
-        email = form.email.data
-        username = form.username.data
+        email = form.email.data.strip()
+        username = form.username.data.strip()
         password1 = form.password1.data
         password2 = form.password2.data
 
-        if password1 == password2:
-            try:
-                new_customer = Customer(
-                    email=email,
-                    username=username,
-                    password=password2
-                )
-                db.session.add(new_customer)
-                db.session.commit()
-
-                flash('User Created Successfully!', 'success')
-                return redirect('/login')
-            except Exception as e:
-                db.session.rollback()
-                print('Error creating user:', e)
-                flash('Error creating user', 'danger')
-
-            form.email.data = ''
-            form.username.data = ''
-            form.password1.data = ''
-            form.password2.data = ''
-        else:
+        if password1 != password2:
             flash('Passwords do not match', 'warning')
-    return render_template("signup.html", form=form)
+            return render_template("signup.html", form=form)
+        if Customer.query.filter_by(email=email).first():
+            flash('Email already registered!', 'warning')
+            return render_template("signup.html", form=form)
+        if Customer.query.filter_by(username=username).first():
+            flash('Username already taken!', 'warning')
+            return render_template("signup.html", form=form)
+        try:
+            new_customer = Customer(email=email, username=username)
+            new_customer.password = password1
+            db.session.add(new_customer)
+            db.session.commit()
+            flash('User created successfully! Please log in.', 'success')
+            return redirect(url_for('auth.login'))
+        except Exception as e:
+            db.session.rollback()
+            print("Error creating user:", e)
+            flash('Error creating user. Try again later.', 'danger')
 
+    return render_template("signup.html", form=form)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        email = form.email.data
+        email = form.email.data.strip()
         password = form.password.data
-
         customer = Customer.query.filter_by(email=email).first()
-        print(customer)
-
-        if customer:
-            if customer.verify_password(password):
-                flash('Logged in successfully')
-                login_user(customer)
-                return redirect('/')
-            else:
-                flash('Incorrect password')
+        print("Customer found:", customer)
+        if customer and customer.verify_password(password):
+            login_user(customer)
+            flash('Logged in successfully!', 'success')
+            return redirect(url_for('views.home'))
+        elif customer:
+            flash('Incorrect password.', 'danger')
         else:
-            flash('Email does not exist') 
-
+            flash('Email does not exist.', 'warning')
     return render_template("login.html", form=form)
 
 
