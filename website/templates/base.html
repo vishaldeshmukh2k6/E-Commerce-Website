@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/e24507d923.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.css"
+        integrity="sha512-vWHsp0PuTxwRMLtGTnbS7PDNtI7yFmmiFq24hjcqpup/KK7ixxWdXwRmerG9gu7peaSRIVxpFcfBSVrGzWcF4w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <title>Vishal Mart | {% block title %} {% endblock %} </title>
+
+</head>
+
+<body style="background-color: rgb(225, 231, 232);">
+    <!-- navbar section -->
+    <nav class="navbar navbar-expand-lg" style="background-color: rgb(104, 72, 235);">
+        <div class="container-fluid">
+
+            <!-- Vishal Mart Brand -->
+            <a class="navbar-brand d-flex align-items-center" href="/" style="color: orange; font-size: 30px;">
+                <i class="bi bi-shop me-2" style="font-size: 28px; color: #ff1493; margin-top: 4px;"></i>
+                <span style="font-weight:600; font-size:20px; color:#333;">Vishal Mart</span>
+            </a>
+
+            <!-- Toggler -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Links + Search + Icons -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <!-- Left Nav Links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item mx-2">
+                        <a class="nav-link text-grey" href="#" style="font-size: 17px;">About Us</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link text-grey" href="#" style="font-size: 17px;">Contact Us</a>
+                    </li>
+                </ul>
+
+                <!-- Search -->
+                <form class="d-flex me-5" role="search" action="/search" method="POST">
+                    <input class="form-control me-2" name="search" type="search" placeholder="Search"
+                        aria-label="Search">
+                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                </form>
+
+                <!-- Right Icons -->
+                <ul class="navbar-nav align-items-center" style="margin-top: 4px;"> <!-- consistent top margin -->
+
+                    <li class="nav-item mx-2">
+                        <a class="nav-link text-grey d-flex align-items-center" href="/#">
+                            <span class="me-1">Cart</span>
+                            <i class="bi bi-cart" style="font-size: 20px;"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item mx-2">
+                        <a class="nav-link text-grey d-flex align-items-center" href="#">
+                            <span class="me-1">Wishlist</span>
+                            <i class="bi bi-heart" style="font-size: 20px;"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown mx-2">
+                        <a class="nav-link dropdown-toggle text-grey d-flex align-items-center" href="#"
+                            id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="me-1">Account</span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                            <li><a class="dropdown-item" href="/#">Profile <i class="bi bi-person ms-2"></i></a></li>
+                            <li><a class="dropdown-item" href="/#">Orders <i class="bi bi-truck ms-2"></i></a></li>
+                            <li><a class="dropdown-item" href="/logout">Log Out <i
+                                        class="bi bi-box-arrow-right ms-2"></i></a></li>
+                            <li><a class="dropdown-item" href="/login">Login <i
+                                        class="bi bi-box-arrow-in-right ms-2"></i></a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% for message in get_flashed_messages() %}
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 5px;">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+    </div>
+    {% endfor %}
+
+    {% block body %}
+
+
+    {% endblock %}
+
+
+    <footer class="container-fluid  text-center p-2 mt-5" style="background-color: rgb(104, 72, 235); color: white;">
+        <a href="https://github.com/vishaldeshmukh2k6" style="color: white;">Vishal Mart</a> | <span>
+            <i class="bi bi-c-circle"></i></span> 2025 All rights reserved
+
+    </footer>
+
+    <script src="{{ url_for( 'static', filename='js/owl.carousel.min.js') }}"></script>
+    <script src="{{ url_for( 'static', filename='js/all.min.js') }}"></script>
+    <script src="{{ url_for( 'static', filename='js/jquery.js') }}"></script>
+
+    <script src="{{ url_for( 'static', filename='js/myScript.js') }}"></script>
+
+</body>
+
+</html>
