@@ -68,3 +68,9 @@ def log_out():
     logout_user()
     return redirect('/')
 
+
+@auth.route('/profile/<int:customer_id>')
+@login_required
+def profile(customer_id):
+    customer = Customer.query.get_or_404(customer_id)
+    return render_template("profile.html", customer=customer)
