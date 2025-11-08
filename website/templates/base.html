@@ -82,12 +82,15 @@
                             <span class="me-1">Account</span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                            <li><a class="dropdown-item" href="/#">Profile <i class="bi bi-person ms-2"></i></a></li>
+                            {% if current_user.is_authenticated %}
+                            <li><a class="dropdown-item" href="/profile/{{ current_user.id }}">Profile <i class="bi bi-person ms-2"></i></a></li>
                             <li><a class="dropdown-item" href="/#">Orders <i class="bi bi-truck ms-2"></i></a></li>
                             <li><a class="dropdown-item" href="/logout">Log Out <i
                                         class="bi bi-box-arrow-right ms-2"></i></a></li>
+                            {% else %}
                             <li><a class="dropdown-item" href="/login">Login <i
                                         class="bi bi-box-arrow-in-right ms-2"></i></a></li>
+                            {% endif %}
                         </ul>
                     </li>
 

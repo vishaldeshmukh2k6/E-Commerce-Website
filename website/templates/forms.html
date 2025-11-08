@@ -19,20 +19,41 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
 
     <title>Vishal Mart | {% block title %} {% endblock %}</title>
-</head>
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(120deg, #f0e6ff 0%, #e6f0ff 100%);
+            display: flex;
+            flex-direction: column; /* चीज़ों को एक के नीचे एक रखेगा */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+    </style>
+    </head>
 
 <body>
-    {% for message in get_flashed_messages() %}
-
-    <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 5px;">
-        <strong>{{ message }}</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-
-    </div>
-    {% endfor %}
-
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages-container" style="width: 100%; max-width: 1000px; margin: 0 auto 20px auto;">
+          {% for category, message in messages %}
+            {% set category = 'danger' if category == 'error' else category %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert" style="margin-bottom: 10px;">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
     {% block body %}
-
-
     {% endblock %}
+
 </body>
+
+</html>
