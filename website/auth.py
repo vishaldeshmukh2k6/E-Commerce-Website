@@ -73,4 +73,12 @@ def log_out():
 @login_required
 def profile(customer_id):
     customer = Customer.query.get_or_404(customer_id)
-    return render_template("profile.html", customer=customer)
+    cart_items = customer.cart_items
+    orders = customer.orders
+
+    return render_template(
+        "profile.html",
+        customer=customer,
+        cart_items=cart_items,
+        orders=orders
+    )
