@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us - E-Commerce Store{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h1>Contact Us</h1>
+        <p>We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+        
+        <form id="contact-form">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="subject" class="form-label">Subject</label>
+                <input type="text" class="form-control" id="subject" required>
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+    </div>
+    
+    <div class="col-md-4">
+        <h3>Get in Touch</h3>
+        <div class="mb-3">
+            <i class="fas fa-envelope"></i>
+            <strong>Email:</strong><br>
+            vishaldeshmuk143@gmail.com
+        </div>
+        <div class="mb-3">
+            <i class="fas fa-phone"></i>
+            <strong>Phone:</strong><br>
+            +91 8830863219
+        </div>
+        <div class="mb-3">
+            <i class="fas fa-map-marker-alt"></i>
+            <strong>Address:</strong><br>
+            Nagpur, Maharashtra ( 441907 )<br>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}
