@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Product Details - E-Commerce Store{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <img id="product-image" src="" alt="Product Image" class="img-fluid rounded">
+    </div>
+    <div class="col-md-6">
+        <h1 id="product-name"></h1>
+        <p class="text-muted" id="product-category"></p>
+        <div class="mb-3">
+            <span class="h3 text-primary" id="product-price"></span>
+            <div class="rating" id="product-rating"></div>
+        </div>
+        <p id="product-description"></p>
+        
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Quantity:</label>
+            <input type="number" class="form-control" id="quantity" value="1" min="1" style="width: 100px;">
+        </div>
+        
+        <div class="d-flex gap-2 mb-4">
+            <button class="btn btn-primary" id="add-to-cart">
+                <i class="fas fa-shopping-cart"></i> Add to Cart
+            </button>
+            <button class="btn btn-outline-danger" id="add-to-wishlist">
+                <i class="fas fa-heart"></i> Add to Wishlist
+            </button>
+        </div>
+        
+        <div class="product-specs">
+            <h5>Specifications</h5>
+            <ul id="product-specs">
+                <!-- Product specifications will be loaded here -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="mt-5">
+    <ul class="nav nav-tabs" id="productTabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-bs-toggle="tab" href="#reviews">Reviews</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#related">Related Products</a>
+        </li>
+    </ul>
+    
+    <div class="tab-content mt-3">
+        <div class="tab-pane fade show active" id="reviews">
+            <div class="mb-4">
+                <h5>Write a Review</h5>
+                <form id="review-form">
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Rating:</label>
+                        <select class="form-select" id="rating" style="width: 150px;">
+                            <option value="5">5 Stars</option>
+                            <option value="4">4 Stars</option>
+                            <option value="3">3 Stars</option>
+                            <option value="2">2 Stars</option>
+                            <option value="1">1 Star</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" id="review-text" rows="3" placeholder="Write your review..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                </form>
+            </div>
+            <div id="reviews-list">
+                <!-- Reviews will be loaded here -->
+            </div>
+        </div>
+        
+        <div class="tab-pane fade" id="related">
+            <div class="row" id="related-products">
+                <!-- Related products will be loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
