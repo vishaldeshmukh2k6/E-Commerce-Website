@@ -3,48 +3,69 @@
 {% block title %}Home - E-Commerce Store{% endblock %}
 
 {% block content %}
-<div class="hero-section bg-light p-5 rounded mb-4">
-    <div class="text-center">
-        <h1 class="display-4">Welcome to E-Commerce Store</h1>
-        <p class="lead">Discover amazing products at great prices</p>
-        <a href="{{ url_for('views.products') }}" class="btn btn-primary btn-lg">Shop Now</a>
+
+    <!-- SLIDER WRAPPER -->
+<div class="relative w-full max-w-6xl mx-auto mt-6 overflow-hidden rounded-lg shadow-lg">
+
+    <!-- Slider Container -->
+    <div id="slider" class="flex transition-transform duration-700 ease-out">
+
+        <img src="{{ url_for('static', filename='img/scroll-img.jpeg') }}"
+             class="w-full flex-shrink-0" />
+
+        <img src="{{ url_for('static', filename='img/scroll-img2.jpg') }}"
+             class="w-full flex-shrink-0" />
+
+        <img src="{{ url_for('static', filename='img/img2.jpg') }}"
+             class="w-full flex-shrink-0" />
+
+        <img src="{{ url_for('static', filename='img/imag3.jpg') }}"
+             class="w-full flex-shrink-0" />
+
     </div>
+
+    <!-- LEFT ARROW -->
+    <button id="prevBtn"
+            class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md p-3 rounded-full">
+        <i class="fas fa-chevron-left text-xl"></i>
+    </button>
+
+    <!-- RIGHT ARROW -->
+    <button id="nextBtn"
+            class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md p-3 rounded-full">
+        <i class="fas fa-chevron-right text-xl"></i>
+    </button>
+
 </div>
 
-<div class="row">
-    <div class="col-md-4 mb-4">
-        <div class="card">
-            <div class="card-body text-center">
-                <i class="fas fa-shipping-fast fa-3x text-primary mb-3"></i>
-                <h5>Fast Shipping</h5>
-                <p>Free shipping on orders over $50</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 mb-4">
-        <div class="card">
-            <div class="card-body text-center">
-                <i class="fas fa-shield-alt fa-3x text-success mb-3"></i>
-                <h5>Secure Payment</h5>
-                <p>Your payment information is safe</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 mb-4">
-        <div class="card">
-            <div class="card-body text-center">
-                <i class="fas fa-undo fa-3x text-warning mb-3"></i>
-                <h5>Easy Returns</h5>
-                <p>30-day return policy</p>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- JavaScript Slider Logic -->
+<script>
+    const slider = document.getElementById("slider");
+    const nextBtn = document.getElementById("nextBtn");
+    const prevBtn = document.getElementById("prevBtn");
 
-<section class="featured-products">
-    <h2 class="mb-4">Featured Products</h2>
-    <div class="row" id="featured-products">
-        <!-- Featured products will be loaded here -->
-    </div>
-</section>
+    let index = 0;
+
+    function updateSlider() {
+        slider.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    nextBtn.addEventListener("click", () => {
+        index = (index + 1) % slider.children.length;
+        updateSlider();
+    });
+
+    prevBtn.addEventListener("click", () => {
+        index = (index - 1 + slider.children.length) % slider.children.length;
+        updateSlider();
+    });
+
+    // Auto-slide every 3 seconds
+    setInterval(() => {
+        index = (index + 1) % slider.children.length;
+        updateSlider();
+    }, 3000);
+</script>
+
+
 {% endblock %}
